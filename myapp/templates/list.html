@@ -1,0 +1,79 @@
+
+{% extends 'base/base.html' %}
+
+
+{% block title %}
+    Video Lists
+{% endblock title %}
+    
+
+{% block content %}
+
+<div class="container mt-2">
+
+    <div class="row">
+        <div class="col-sm-6 offset-sm-2 mt-1 mb-2">
+            <form action="" method="POST" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-8 ">
+                        {% for fields in form %}
+                        
+                           <label for="{{fields.auto_id}}" class="lead ml-3 mb-1 mt-2">{{fields.label}}</label>
+                           {%if fields.errors%}
+                           <small class="text-danger mt-1 mb-1 d-block">{{fields.errors|striptags}}</small>
+                           {% endif %}
+                           {{fields}}
+                        {% endfor %}
+                        <div class="col-sm-6 offset-sm-4">
+                            <input type="submit" value="search" class="btn btn-outline-success mt-2 mb-3 text-center">
+                        </div>
+                    </div>
+                </div>
+            
+            </form>
+        </div>
+        <div class="col-sm-3 mt-1 mb-2">
+            <a href="{% url 'index'%}" class="btn btn-outline-info">Upload Video</a>
+            <a href="{% url 'pricingview'%}" class="btn btn-outline-danger m-2">View Pricing</a>
+        </div>
+        
+        
+        <div class="col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Video  Link</th>
+                    <th>Action</th>
+                </tr>
+                {% if data.exists %}
+                {% for item in data %}
+                <tr>
+                    <td style="text-align:center;font-weight:bold;text-transform:capitalize;padding:2rem;">{{item.title}}</td>
+                    <td style="max-width:250px;text-align:justify;padding:3rem;" class="text-sentencecase">{{item.description}}</td>
+                    <td>
+                    <video src="{{item.video_file.url}}" width="100%" height="150"  class="embeded-responsive-item text-center p-2">
+                        <source src="{{item.video_file.url}}" type="video/mp4">
+                    </video>
+        
+                    </td>
+                    <td><a href="{% url 'detailview' item.id %}" class="btn btn-outline-dark">View Full Video</a></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <th colspan="3"><h4 class="text-center">No Videos Present</h4></th>
+                    <th><a href="{% url 'index' %}" class="btn btn-outline-info">Upload Video</a></th>
+                </tr>
+                {% endif %}
+                
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock content %}
+    

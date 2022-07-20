@@ -1,0 +1,55 @@
+
+{% extends 'base/base.html' %}
+
+{% block title %}
+Upload Video
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container">
+
+<div class="row">
+    <div class="col-sm-12 mt-2 p-1">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4"><h4 class="text-center m-2">Upload Your Video</h4></div>   
+                <div class="col-sm-2"><a href="{% url 'videolist' %}" class="btn btn-outline-warning m-2">Show Video List</a></div>   
+                <div class="col-sm-2"><a href="{% url 'pricingview'%}" class="btn btn-outline-danger m-2">View Pricing</a></div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="container">
+
+        <div class="col-sm-8 offset-sm-1">
+            <form action="" method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                {% for fields in form %}
+                    <div class="form-group">
+                        {% if fields.errors %}
+                        <span class="outline outline-danger text-danger">
+                            {{fields.errors}}
+                        </span>
+                        {% endif %}
+                      <label for="{{fields.auto_id}}">{{fields.label}}</label>
+                      {{fields}}
+                    </div>
+                {% endfor %}
+                
+                
+        
+                <input type="submit" value="submit" class="btn btn-success text-center m-2 p-2">
+    
+            </form>
+                    
+        </div>
+    </div>
+</div>
+
+
+</div>
+{% endblock content %}

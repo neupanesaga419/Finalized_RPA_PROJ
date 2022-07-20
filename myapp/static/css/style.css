@@ -1,0 +1,12 @@
+.text-sentencecase {
+    text-transform: lowercase;
+}
+
+.text-sentencecase::first-letter {
+    text-transform: uppercase;
+}
+
+.bg-grey {
+    /* background:linear-gradient(); */
+    box-shadow: 2px 2px 4px 2px rgb(134, 134, 134);
+}

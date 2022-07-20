@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block title %}View Pricing{% endblock title %}
+
+{% block content %}
+
+<div class="container mt-5 ">
+    <div class="row">
+        <div class=" offset-sm-4 col-sm-2 mb-3">
+            <a href="{% url 'index' %}" class="btn btn-outline-primary">Upload Video</a>
+        </div>
+        <div class="col-sm-2 mb-3">
+            <a href="{% url 'videolist' %}" class="btn btn-outline-warning">Show Video List</a>
+        </div>
+    </div>
+
+    <div class="row ">
+        <form action="" method="POST" novalidate class="bg-grey p-3">
+            <h4 class="text-center">Get Your Charges</h4>
+            {% csrf_token %}
+            {% for fields in form %}
+            <div class="col-sm-6 offset-sm-3 mt-4">
+               
+                <label for="{{fields.auto_id}}" class="lead mb-3">{{fields.label}}</label>
+                {% if fields.errors %}
+                <small class="text-danger d-block mb-2">{{fields.errors|striptags}}</small>
+                {%endif %}
+                {{fields}}
+            </div>
+            {% endfor %}
+            <div class="col-sm-6 offset-sm-3 mt-4 text-center">
+                <input type="submit" value="Get Price" class="btn btn-outline-success">
+            </div>
+            
+        </form>
+
+    </div>
+    {% if charges %}
+    <div class="col-sm-12 mt-3 text-center">
+        <h3>{{charges}}</h3>
+    </div>
+    {%endif %}
+</div>
+
+{% endblock content %}
