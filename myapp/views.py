@@ -119,8 +119,9 @@ class VideoListView(APIView):
             date = request.POST.get('search_date')
             queryset = VideoDetails.objects.filter(date_uploaded=date)
             return Response({'videos':queryset,'serializer':timefilterserializer})
-        
-        return Response({'serializer':timefilterserializer,'videos':self.queryset})
+        else:
+            queryset = VideoDetails.objects.all()
+        return Response({'serializer':timefilterserializer,'videos':queryset})
         
 
 # This view will create API Endpoint to recieve the video with proper validation

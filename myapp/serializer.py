@@ -21,7 +21,6 @@ class VideoDetailsSerializer(serializers.Serializer):
 
 class TimeFilterSerializer(serializers.Serializer):
     search_date = serializers.DateField()
-    
 
    
 class PricingSerializer(serializers.Serializer):
