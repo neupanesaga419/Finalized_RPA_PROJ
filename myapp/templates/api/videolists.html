@@ -1,0 +1,41 @@
+{% load rest_framework %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Videos Lists</h1>
+    <h3>
+        <a href="{% url 'videouploadview' %}">Upload new video</a>
+    </h3>
+    <br>
+    <br>
+    <h3><a href="{% url 'checkpricingview' %}">Check Pricing</a></h3>
+    <br>
+    <br>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% render_form  serializer %}
+        <input type="submit" value="search">
+    </form>
+    <br>
+    <br>
+    <ul>
+
+        {% for video in videos %}
+
+        <li>{{ video.title }}</li>
+        <li>{{video.description}}</li>
+        <video src="{{video.video_file.url}}" width="100%" height="150"  class="embeded-responsive-item text-center p-2">
+            <source src="{{video.video_file.url}}" type="video/mp4">
+        </video>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
